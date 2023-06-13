@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #f8f8ff;
+  width: 100vw;
+  height: 100vh;
+}
+
+.todo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 10%;
+}
+
+.title {
+  color: #646681;
+  font-size: 40px;
+  font-weight: 700;
+  padding: 40px;
+}
+.container {
+  width: 70%;
+}
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  margin: 10px;
+}
+.addtask-container {
+  width: 80%;
+}
+
+.todo-selector {
+  background-color: #cccdde;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  width: 20%;
+  height: 40px;
+  font-size: 15px;
+  font-weight: 400;
+}

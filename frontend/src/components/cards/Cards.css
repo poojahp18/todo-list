@@ -1,0 +1,16 @@
+.cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ecedf6;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.no-todo {
+  padding: 10px;
+  background-color: #dedfe1;
+  width: max-content;
+  border-radius: 5px;
+  margin: 0 auto;
+}

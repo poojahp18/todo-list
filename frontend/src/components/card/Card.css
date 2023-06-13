@@ -1,0 +1,43 @@
+.card {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+}
+.contents {
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+}
+.status {
+  width: 5%;
+}
+
+.task-title {
+  width: 90%;
+}
+
+.strike {
+  opacity: 0.7;
+  text-decoration: line-through;
+}
+
+.icons {
+  display: flex;
+  width: 80px;
+  justify-content: space-between;
+}
+
+.delete,
+.edit {
+  background-color: #eee;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  height: 20px;
+}

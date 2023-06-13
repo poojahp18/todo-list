@@ -1,0 +1,21 @@
+.taskTitle {
+  font-size: 15px;
+  border-radius: 5px;
+  border: none;
+  width: 50%;
+  height: 40px;
+  margin-right: 10px;
+  padding: 0 5px;
+}
+
+.button-add {
+  font-size: 15px;
+  font-weight: 600;
+  width: 100px;
+  height: 40px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  color: #f8f8ff;
+  background-color: #646ff0;
+}
