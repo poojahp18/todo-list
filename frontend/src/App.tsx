@@ -56,7 +56,6 @@ function App() {
 
   const filterTasksHandler = (e: any) => {
     setFilter(e.target.value);
-    filterTasks(filter);
   };
 
   const filterTasks = (filter: string) => {
@@ -71,7 +70,7 @@ function App() {
 
   useEffect(() => {
     filterTasks(filter);
-  }, [tasks]);
+  }, [tasks, filter]);
 
   return (
     <TodoContex.Provider
