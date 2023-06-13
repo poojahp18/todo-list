@@ -12,6 +12,7 @@ function App() {
   ];
   const [tasks, setTasks] = useState<ITask[]>(dummy_tasks);
   const [filteredTask, setFilteredTask] = useState<ITask[]>(tasks);
+  const [filter, setFilter] = useState("all");
 
   const updateTask = (id: number, title: string) => {
     tasks.filter((task: ITask) => {
@@ -53,15 +54,24 @@ function App() {
     }
   };
 
-  const filterTasks = (e: any) => {
+  const filterTasksHandler = (e: any) => {
+    setFilter(e.target.value);
+    filterTasks(filter);
+  };
+
+  const filterTasks = (filter: string) => {
     let taskList: ITask[] = tasks;
-    if (e.target.value === "complete") {
+    if (filter === "complete") {
       taskList = tasks.filter((task) => task.status === true);
-    } else if (e.target.value === "incomplete") {
+    } else if (filter === "incomplete") {
       taskList = tasks.filter((task) => task.status === false);
     }
     setFilteredTask(taskList);
   };
+
+  useEffect(() => {
+    filterTasks(filter);
+  }, [tasks]);
 
   return (
     <TodoContex.Provider
@@ -84,7 +94,7 @@ function App() {
               name="todo-selector"
               className="todo-selector"
               id=""
-              onChange={(e) => filterTasks(e)}
+              onChange={(e) => filterTasksHandler(e)}
             >
               <option value="all">All</option>
               <option value="incomplete">Incomplete</option>
