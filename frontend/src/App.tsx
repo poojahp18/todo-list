@@ -1,20 +1,38 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Cards from "./components/cards";
-import TodoContex, { ITask } from "./contexts/TodoContext";
+import TodoContex, { ISubtask, ITask } from "./contexts/TodoContext";
 import AddTask from "./components/addTask/AddTask";
 
 function App() {
   const [id, setId] = useState<number>(3);
+  const [prio, setPrio] = useState<number>(1);
   const dummy_tasks: ITask[] = [
-    { id: 1, title: "Task 1", status: false },
-    { id: 2, title: "Task 2", status: true },
+    {
+      id: 1,
+      title: "Task 1",
+      status: false,
+      subtask: [{ id: 1, title: "Task 12656", status: false, task_id: 1 }],
+      priority: 1,
+    },
+    {
+      id: 2,
+      title: "Task 2",
+      status: true,
+      subtask: [
+        { id: 1, title: "Task 1", status: false, task_id: 2 },
+        { id: 2, title: "Task 1", status: false, task_id: 2 },
+      ],
+      priority: prio + 1,
+    },
   ];
+
   const [tasks, setTasks] = useState<ITask[]>(dummy_tasks);
   const [filteredTask, setFilteredTask] = useState<ITask[]>(tasks);
+  const [sortTask, setSortTask] = useState<ITask[]>(tasks);
   const [filter, setFilter] = useState("all");
 
-  const updateTask = (id: number, title: string) => {
+  const updateTaskTitle = (id: number, title: string) => {
     tasks.filter((task: ITask) => {
       if (task.id === id) {
         task.title = title;
@@ -34,12 +52,23 @@ function App() {
     });
   };
 
-  const deleteTask = (id: number) => {
-    const newTasks: ITask[] = tasks.filter((task: ITask) => {
-      return task.id !== id;
+  const updateSubtaskStatus = (subtask_id: number, task_id: number) => {
+    console.log(task_id + ": " + subtask_id);
+    tasks.filter((task) => {
+      if (task.id === task_id) {
+        task.subtask.map((elem) => {
+          if (elem.id === subtask_id) {
+            elem.status = !elem.status;
+          }
+        });
+      }
+      setTasks([...tasks]);
     });
-    console.log(newTasks);
-    setTasks(newTasks);
+  };
+
+  const deleteTask = (id: number) => {
+    const updatedTasks: ITask[] = tasks.filter((task: ITask) => task.id !== id);
+    setTasks(updatedTasks);
   };
 
   const addTask = (title: string) => {
@@ -48,10 +77,58 @@ function App() {
         id: id,
         title: title,
         status: false,
+        subtask: [],
+        priority: prio,
       };
       setId(id + 1);
+      setPrio(prio + 1);
       setTasks([...tasks, newTask]);
     }
+  };
+
+  const updateSubTask = (id: number, subtask: ISubtask) => {
+    tasks.filter((task: ITask) => {
+      if (task.id === id) {
+        task.subtask.filter((elem: ISubtask) => {
+          if (subtask.id === elem.id) {
+            elem.title = subtask.title;
+
+            setTasks([...tasks]);
+          }
+        });
+      }
+    });
+
+    console.log(tasks);
+  };
+
+  const deleteSubtask = (subtask_id: number, task_id: number) => {
+    tasks.filter((task) => {
+      if (task.id === task_id) {
+        const updatedsubTask: ISubtask[] = task.subtask.filter((elem) => {
+          return elem.id !== subtask_id;
+        });
+        task.subtask = updatedsubTask;
+      }
+    });
+    setTasks([...tasks]);
+    console.log(tasks);
+  };
+
+  const addSubtask = (task_id: number, subtaskTitle: string) => {
+    const newSubtask: ISubtask = {
+      id: 5,
+      title: subtaskTitle,
+      status: false,
+      task_id: task_id,
+    };
+    console.log(task_id + ":" + subtaskTitle);
+    tasks.filter((task) => {
+      if (task.id === task_id) {
+        task.subtask.push(newSubtask);
+      }
+      setTasks([...tasks]);
+    });
   };
 
   const filterTasksHandler = (e: any) => {
@@ -68,18 +145,37 @@ function App() {
     setFilteredTask(taskList);
   };
 
+  const sortPriority = () => {
+    const taskList: ITask[] = filteredTask;
+    taskList.sort((task1: ITask, task2: ITask) => {
+      return task1.priority - task2.priority;
+    });
+    setSortTask(taskList);
+  };
+
+  useEffect(() => {
+    sortPriority();
+  }, [filteredTask]);
+
   useEffect(() => {
     filterTasks(filter);
+    if (prio === 1) {
+      setPrio(3);
+    }
   }, [tasks, filter]);
 
   return (
     <TodoContex.Provider
       value={{
-        tasks: filteredTask,
+        tasks: sortTask,
         addTask,
-        updateTask,
+        updateTaskTitle,
         updateTaskStatus,
         deleteTask,
+        updateSubTask,
+        deleteSubtask,
+        updateSubtaskStatus,
+        addSubtask,
       }}
     >
       <main className="todo">

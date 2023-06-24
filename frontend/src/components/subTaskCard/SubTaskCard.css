@@ -1,0 +1,39 @@
+.subtask {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: 0.5px solid rgb(242, 238, 243);
+  border-radius: 5px;
+  background-color: #f5f4f7;
+  margin: 5px;
+
+  .contents {
+    display: flex;
+    width: 75%;
+    justify-content: space-between;
+
+    .status {
+      width: 5%;
+    }
+
+    .subtask-title {
+      width: 90%;
+    }
+    .strike {
+      opacity: 0.7;
+      text-decoration: line-through;
+    }
+  }
+  .icons {
+    display: flex;
+    width: 20%;
+
+    .delete,
+    .edit,
+    .subtask {
+      height: 20px;
+      margin: 10px;
+    }
+  }
+}
