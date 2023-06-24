@@ -3,25 +3,42 @@ import "./App.css";
 import Cards from "./components/cards";
 import TodoContex, { ISubtask, ITask } from "./contexts/TodoContext";
 import AddTask from "./components/addTask/AddTask";
+import { nanoid } from "nanoid";
 
 function App() {
-  const [id, setId] = useState<number>(3);
   const [prio, setPrio] = useState<number>(1);
   const dummy_tasks: ITask[] = [
     {
-      id: 1,
+      id: nanoid(),
       title: "Task 1",
       status: false,
-      subtask: [{ id: 1, title: "Task 12656", status: false, task_id: 1 }],
+      subtask: [
+        {
+          id: 1,
+          title: "Task 12656",
+          status: false,
+          task_id: "3p42aSABChury5ZF_VWda",
+        },
+      ],
       priority: 1,
     },
     {
-      id: 2,
+      id: nanoid(),
       title: "Task 2",
       status: true,
       subtask: [
-        { id: 1, title: "Task 1", status: false, task_id: 2 },
-        { id: 2, title: "Task 1", status: false, task_id: 2 },
+        {
+          id: 1,
+          title: "Task 1",
+          status: false,
+          task_id: "tTxcALRnECEhqjPLTtV4_",
+        },
+        {
+          id: 2,
+          title: "Task 1",
+          status: false,
+          task_id: "tTxcALRnECEhqjPLTtV4_",
+        },
       ],
       priority: prio + 1,
     },
@@ -32,7 +49,7 @@ function App() {
   const [sortTask, setSortTask] = useState<ITask[]>(tasks);
   const [filter, setFilter] = useState("all");
 
-  const updateTaskTitle = (id: number, title: string) => {
+  const updateTaskTitle = (id: string, title: string) => {
     tasks.filter((task: ITask) => {
       if (task.id === id) {
         task.title = title;
@@ -41,7 +58,7 @@ function App() {
     });
   };
 
-  const updateTaskStatus = (id: number) => {
+  const updateTaskStatus = (id: string) => {
     tasks.filter((task: ITask) => {
       if (task.id === id) {
         task.status = !task.status;
@@ -52,7 +69,7 @@ function App() {
     });
   };
 
-  const updateSubtaskStatus = (subtask_id: number, task_id: number) => {
+  const updateSubtaskStatus = (subtask_id: number, task_id: string) => {
     console.log(task_id + ": " + subtask_id);
     tasks.filter((task) => {
       if (task.id === task_id) {
@@ -66,7 +83,7 @@ function App() {
     });
   };
 
-  const deleteTask = (id: number) => {
+  const deleteTask = (id: string) => {
     const updatedTasks: ITask[] = tasks.filter((task: ITask) => task.id !== id);
     setTasks(updatedTasks);
   };
@@ -74,19 +91,18 @@ function App() {
   const addTask = (title: string) => {
     if (title) {
       const newTask: ITask = {
-        id: id,
+        id: nanoid(),
         title: title,
         status: false,
         subtask: [],
         priority: prio,
       };
-      setId(id + 1);
       setPrio(prio + 1);
       setTasks([...tasks, newTask]);
     }
   };
 
-  const updateSubTask = (id: number, subtask: ISubtask) => {
+  const updateSubTask = (id: string, subtask: ISubtask) => {
     tasks.filter((task: ITask) => {
       if (task.id === id) {
         task.subtask.filter((elem: ISubtask) => {
@@ -102,7 +118,7 @@ function App() {
     console.log(tasks);
   };
 
-  const deleteSubtask = (subtask_id: number, task_id: number) => {
+  const deleteSubtask = (subtask_id: number, task_id: string) => {
     tasks.filter((task) => {
       if (task.id === task_id) {
         const updatedsubTask: ISubtask[] = task.subtask.filter((elem) => {
@@ -115,9 +131,9 @@ function App() {
     console.log(tasks);
   };
 
-  const addSubtask = (task_id: number, subtaskTitle: string) => {
+  const addSubtask = (task_id: string, subtaskTitle: string) => {
     const newSubtask: ISubtask = {
-      id: 5,
+      id: 4,
       title: subtaskTitle,
       status: false,
       task_id: task_id,
@@ -155,6 +171,7 @@ function App() {
 
   useEffect(() => {
     sortPriority();
+    console.log(sortTask);
   }, [filteredTask]);
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 export interface ITask {
-  id: number;
+  id: string;
   title: string;
   status: boolean;
   subtask: ISubtask[];
@@ -12,19 +12,19 @@ export interface ISubtask {
   id: number;
   title: string;
   status: boolean;
-  task_id: number;
+  task_id: string;
 }
 
 export type TodoContextType = {
   tasks: ITask[];
   addTask: (title: string) => void;
-  updateTaskTitle: (id: number, title: string) => void;
-  updateTaskStatus: (id: number) => void;
-  deleteTask: (id: number) => void;
-  updateSubTask: (id: number, subtask: ISubtask) => void;
-  deleteSubtask: (subtask_id: number, task_id: number) => void;
-  updateSubtaskStatus: (subtask_id: number, task_id: number) => void;
-  addSubtask: (id: number, subtaskTitle: string) => void;
+  updateTaskTitle: (id: string, title: string) => void;
+  updateTaskStatus: (id: string) => void;
+  deleteTask: (id: string) => void;
+  updateSubTask: (id: string, subtask: ISubtask) => void;
+  deleteSubtask: (subtask_id: number, task_id: string) => void;
+  updateSubtaskStatus: (subtask_id: number, task_id: string) => void;
+  addSubtask: (task_id: string, subtaskTitle: string) => void;
 };
 
 const TodoContex = createContext<TodoContextType | null>(null);

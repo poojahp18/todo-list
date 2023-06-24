@@ -23,22 +23,22 @@ export default function Card({ task }: { task: ITask }) {
   const [hasSubtask, setHasSubtask] = useState(task.subtask.length > 0);
   const [newSubtask, setNewSubtask] = useState("");
 
-  const deleteTaskHandler = (id: number) => {
+  const deleteTaskHandler = (id: string) => {
     deleteTask(id);
   };
 
-  const editTaskHandler = (id: number) => {
+  const editTaskHandler = (id: string) => {
     updateTask(id, newTitle);
     setNewTitle("");
     setDisplayEdit(false);
   };
 
-  const updateTaskStatusHandler = (id: number) => {
+  const updateTaskStatusHandler = (id: string) => {
     updateTaskStatus(id);
     setIsFinished((current) => !current);
   };
 
-  const addSubtaskHandler = (task_id: number) => {
+  const addSubtaskHandler = (task_id: string) => {
     addSubtask(task_id, newSubtask);
     setNewSubtask("");
   };

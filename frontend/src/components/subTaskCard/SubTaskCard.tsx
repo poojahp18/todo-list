@@ -26,7 +26,7 @@ export default function SubTaskCard({ subTask }: { subTask: ISubtask }) {
     setDisplayEdit(false);
   };
 
-  const deleteSubTaskHandler = (subtask_id: number, task_id: number) => {
+  const deleteSubTaskHandler = (subtask_id: number, task_id: string) => {
     deleteSubtask(subtask_id, task_id);
   };
 
