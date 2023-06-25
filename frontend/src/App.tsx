@@ -69,20 +69,6 @@ function App() {
     });
   };
 
-  const updateSubtaskStatus = (subtask_id: number, task_id: string) => {
-    console.log(task_id + ": " + subtask_id);
-    tasks.filter((task) => {
-      if (task.id === task_id) {
-        task.subtask.map((elem) => {
-          if (elem.id === subtask_id) {
-            elem.status = !elem.status;
-          }
-        });
-      }
-      setTasks([...tasks]);
-    });
-  };
-
   const deleteTask = (id: string) => {
     const updatedTasks: ITask[] = tasks.filter((task: ITask) => task.id !== id);
     setTasks(updatedTasks);
@@ -118,6 +104,20 @@ function App() {
     console.log(tasks);
   };
 
+  const updateSubtaskStatus = (subtask_id: number, task_id: string) => {
+    console.log(task_id + ": " + subtask_id);
+    tasks.filter((task) => {
+      if (task.id === task_id) {
+        task.subtask.map((elem) => {
+          if (elem.id === subtask_id) {
+            elem.status = !elem.status;
+          }
+        });
+      }
+      setTasks([...tasks]);
+    });
+  };
+
   const deleteSubtask = (subtask_id: number, task_id: string) => {
     tasks.filter((task) => {
       if (task.id === task_id) {
@@ -147,6 +147,28 @@ function App() {
     setTasks([...tasks]);
   };
 
+  const rearrangePriority = (start: number, dest: number, task_id: string) => {
+    if (dest > start) {
+      sortTask.map((elem) => {
+        if (elem.priority > start + 1 && elem.priority <= dest + 1) {
+          elem.priority = elem.priority - 1;
+        } else if (elem.id === task_id) {
+          elem.priority = dest + 1;
+        }
+      });
+    } else {
+      sortTask.map((elem) => {
+        if (elem.priority >= dest + 1 && elem.priority < start + 1) {
+          elem.priority = elem.priority + 1;
+        } else if (elem.id === task_id) {
+          elem.priority = dest + 1;
+        }
+      });
+    }
+    setSortTask(sortTask);
+    sortPriority();
+  };
+
   const filterTasksHandler = (e: any) => {
     setFilter(e.target.value);
   };
@@ -171,7 +193,6 @@ function App() {
 
   useEffect(() => {
     sortPriority();
-    console.log(sortTask);
   }, [filteredTask]);
 
   useEffect(() => {
@@ -193,6 +214,7 @@ function App() {
         deleteSubtask,
         updateSubtaskStatus,
         addSubtask,
+        rearrangePriority,
       }}
     >
       <main className="todo">

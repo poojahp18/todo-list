@@ -5,12 +5,18 @@
   background-color: #ecedf6;
   border-radius: 10px;
   padding: 20px;
-}
+  .dropableSection {
+    width: 100%;
+    .draggableSection {
+      width: 100%;
+    }
+  }
 
-.no-todo {
-  padding: 10px;
-  background-color: #dedfe1;
-  width: max-content;
-  border-radius: 5px;
-  margin: 0 auto;
+  .no-todo {
+    padding: 10px;
+    background-color: #dedfe1;
+    width: max-content;
+    border-radius: 5px;
+    margin: 0 auto;
+  }
 }

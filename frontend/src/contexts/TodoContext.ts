@@ -25,6 +25,7 @@ export type TodoContextType = {
   deleteSubtask: (subtask_id: number, task_id: string) => void;
   updateSubtaskStatus: (subtask_id: number, task_id: string) => void;
   addSubtask: (task_id: string, subtaskTitle: string) => void;
+  rearrangePriority: (start: number, dest: number, task_id: string) => void;
 };
 
 const TodoContex = createContext<TodoContextType | null>(null);
