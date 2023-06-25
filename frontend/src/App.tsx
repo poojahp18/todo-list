@@ -143,8 +143,8 @@ function App() {
       if (task.id === task_id) {
         task.subtask.push(newSubtask);
       }
-      setTasks([...tasks]);
     });
+    setTasks([...tasks]);
   };
 
   const filterTasksHandler = (e: any) => {

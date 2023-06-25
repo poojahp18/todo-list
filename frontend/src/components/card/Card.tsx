@@ -21,7 +21,7 @@ export default function Card({ task }: { task: ITask }) {
   const [displayEdit, setDisplayEdit] = useState(false);
   const [showSubtask, setShowSubtask] = useState(false);
   const [hasSubtask, setHasSubtask] = useState(task.subtask.length > 0);
-  const [newSubtask, setNewSubtask] = useState("");
+  const [newSubtaskTitle, setNewSubtaskTitle] = useState("");
 
   const deleteTaskHandler = (id: string) => {
     deleteTask(id);
@@ -39,15 +39,16 @@ export default function Card({ task }: { task: ITask }) {
   };
 
   const addSubtaskHandler = (task_id: string) => {
-    addSubtask(task_id, newSubtask);
-    setNewSubtask("");
+    addSubtask(task_id, newSubtaskTitle);
+    if (hasSubtask === false) setHasSubtask(true);
+    setNewSubtaskTitle("");
   };
 
   useEffect(() => {
     setIsFinished(task.status);
     setTextClassName(isFinished ? "task-title strike" : "task-title ");
     setHasSubtask(task.subtask.length > 0);
-  }, [task, isFinished, hasSubtask]);
+  }, [task, isFinished, hasSubtask, task.subtask]);
 
   return (
     <div className="card">
@@ -138,7 +139,7 @@ export default function Card({ task }: { task: ITask }) {
               xmlns="http://www.w3.org/2000/svg"
               height="1em"
               viewBox="0 0 512 512"
-              onClick={() => newSubtask && addSubtaskHandler(task.id)}
+              onClick={() => newSubtaskTitle && addSubtaskHandler(task.id)}
             >
               <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
             </svg>
@@ -147,8 +148,8 @@ export default function Card({ task }: { task: ITask }) {
                 type="text"
                 name="subtask-title"
                 className="subtask-title"
-                value={newSubtask}
-                onChange={(e) => setNewSubtask(e.target.value)}
+                value={newSubtaskTitle}
+                onChange={(e) => setNewSubtaskTitle(e.target.value)}
               />
             </div>
           </div>
